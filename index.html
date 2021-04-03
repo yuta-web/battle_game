@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>対戦ゲーム</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main>
+		<section class="enemy section-box">
+			<h2 class="name enemy-name" id="js-enemy-name"></h2>
+
+			<div class="hp-gauge">
+				<div class="hp-gauge-value" id="js-current-enemy-hp-gauge"></div>
+			</div>
+
+			<div class="hp">
+				<div id="js-current-enemy-hp"></div><div id="js-max-enemy-hp"></div>
+			</div>
+		</section>
+
+		<section class="player section-box">
+			<h2 class="name player-name" id="js-player-name"></h2>
+
+			<div class="hp-gauge">
+				<div class="hp-gauge-value" id="js-current-player-hp-gauge"></div>
+			</div>
+
+			<div class="hp">
+				<div id="js-current-player-hp"></div><div id="js-max-player-hp"></div>
+			</div>
+
+			<ul id="js-logs" class="logs"></ul>
+
+			<button id="js-attack" class="attack">攻撃する</button>
+		</section>
+	</main>
+</body>
+<script src="script.js"></script>
+</html>

@@ -1,0 +1,92 @@
+@charset "utf-8";
+
+*, *::before, *::after {
+	box-sizing: border-box;
+	list-style: none;
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+main {
+	margin: 50px auto;
+	padding: 20px;
+	background-color: #ddd;
+	border-radius: 5px;
+	max-width: 1000px;
+	width: 100%;
+}
+
+.section-box {
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+.name {
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
+}
+
+.enemy {
+	margin-bottom: 20px;
+}
+
+.hp-gauge {
+	border: 1px solid #777;
+	margin-top: 10;
+}
+
+.hp-gauge-value {
+	width: 100%;
+	height: 15px;
+	background-color: #6bf;
+	transition: .5s;
+}
+
+.hp {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.hp > div:first-child::after {
+	content: '/';
+	margin: 0 5px;
+}
+
+.logs {
+	margin-top: 30px;
+	padding: 10px 15px;
+	height: 250px;
+	border: 1px solid #777;
+	border-radius: 5px;
+	font-size: 16px;
+	line-height: 1.8;
+	overflow: auto;
+	box-shadow: 0 0 3px 0 #777 inset;
+}
+
+.attack {
+	margin: 40px auto 0;
+	width: 200px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #f44;
+	color: #fff;
+	border: 0;
+	outline: none;
+	font-size: 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.attack.deactive {
+	pointer-events: none;
+	opacity: .5;
+}
