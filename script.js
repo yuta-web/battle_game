@@ -2,6 +2,8 @@
 const damageRange = 0.2;
 const criticalHitRate = 0.1;
 let logIndex = 0;
+let nowKilledNumber = 0;
+let targetKilledNumber = 2;
 
 
 
@@ -34,8 +36,10 @@ const enemiesData = [
 	},
 ]
 
+
+
 // 敵の出現乱数
-const enemyData = enemiesData[Math.floor(Math.random() * enemiesData.length)];
+let enemyData = enemiesData[Math.floor(Math.random() * enemiesData.length)];
 
 
 
@@ -58,8 +62,19 @@ function damageCalculation(attack, defence) {
 }
 
 
+// モーダル
+function showModal(title, hiddenNextButton = false) {
+	document.getElementById("js-mask").classList.add("active");
+	document.getElementById("js-modal").classList.add("active")
+	document.getElementById("js-modal-title").textContent = title;
+	if (hiddenNextButton) {
+		document.getElementById("js-modal-next-button").classList.add("hidden");
+	}
+}
 
-// ライフ計算
+
+
+// テキスト挿入
 function insertText(id, text) {
 	document.getElementById(id).textContent = text;
 }
@@ -71,6 +86,12 @@ insertText("js-enemy-name", enemyData["name"]);
 insertText("js-current-enemy-hp", enemyData["hp"]);
 insertText("js-max-enemy-hp", enemyData["hp"]);
 
+insertText("js-now-killed-numbers", nowKilledNumber);
+insertText("js-target-killed-numbers", targetKilledNumber);
+
+
+
+// 攻撃アクション
 document.getElementById("js-attack").addEventListener("click", function() {
 	let victory = false;
 	let defeat = false;
@@ -127,13 +148,14 @@ document.getElementById("js-attack").addEventListener("click", function() {
 
 	// 勝敗　もし買ったら
 	if (enemyData["hp"] <= 0) {
-		alert("勝利");
 		victory = true
 
 		enemyData["hp"] = 0;
 		insertText("js-current-enemy-hp", enemyData["hp"]);
 		document.getElementById("js-current-enemy-hp-gauge").style.width = "0%"
 
+		// モーダル
+		showModal(enemyData["name"] + "を倒した！");
 	}
 
 	// 敵からプレイヤーへの攻撃処理
@@ -152,12 +174,13 @@ document.getElementById("js-attack").addEventListener("click", function() {
 
 		// 勝敗　もし負けたら
 		if (playerData["hp"] <= 0) {
-			alert("敗北");
 			defeat = true
 
 			playerData["hp"] = 0;
 			insertText("js-current-player-hp", playerData["hp"]);
 			document.getElementById("js-current-player-hp-gauge").style.width = "0%"
+
+			showModal(enemyData["name"] + "に負けた...", ture);
 		}
 	}
 
@@ -166,4 +189,14 @@ document.getElementById("js-attack").addEventListener("click", function() {
 		this.classList.add("deactive");
 	}
 
+// 敵を倒したら討伐数を増やす
+	if (victory) {
+		nowKilledNumber++;
+		insertText("js-now-killed-numbers", nowKilledNumber);
+	}
+
 });
+
+document.getElementById("modal-next-button").addEventListener("click", function(){
+	enemyData = enemiesData[Math.floor(Math.random() * enemiesData.length)];
+})
