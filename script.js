@@ -35,7 +35,9 @@ const enemiesData = [
 		defence: 2
 	},
 ]
-
+for (let i = 0; i < enemiesData.length; i++) {
+	enemiesData[i]["maxHp"] = enemiesData[i]["hp"];
+}
 
 
 // 敵の出現乱数
@@ -99,25 +101,25 @@ document.getElementById("js-attack").addEventListener("click", function() {
 
 
 	// ライフカラー
-	let enemyHpColor = (enemyData["hp"] / enemyData["maxHp"] * 100);
-	let playerHpColor = (playerData["hp"] / playerData["maxHp"] * 100);
+	// let enemyHpColor = (enemyData["hp"] / enemyData["maxHp"] * 100);
+	// let playerHpColor = (playerData["hp"] / playerData["maxHp"] * 100);
 
-	function changeColor(id, color) {
-		document.getElementById(id).style.backgroundColor = color
-	}
+	// function changeColor(id, color) {
+	// 	document.getElementById(id).style.backgroundColor = color
+	// }
 
-	if (enemyHpColor <= 50) {
-		changeColor("js-current-enemy-hp-gauge", "yellow");
-	}
-	if (enemyHpColor <= 10) {
-		changeColor("js-current-enemy-hp-gauge", "red");
-	}
-	if (playerHpColor <= 50) {
-		changeColor("js-current-player-hp-gauge", "yellow");
-	}
-	if (playerHpColor <= 10) {
-		changeColor("js-current-player-hp-gauge", "red");
-	}
+	// if (enemyHpColor <= 50) {
+	// 	changeColor("js-current-enemy-hp-gauge", "yellow");
+	// }
+	// if (enemyHpColor <= 10) {
+	// 	changeColor("js-current-enemy-hp-gauge", "red");
+	// }
+	// if (playerHpColor <= 50) {
+	// 	changeColor("js-current-player-hp-gauge", "yellow");
+	// }
+	// if (playerHpColor <= 10) {
+	// 	changeColor("js-current-player-hp-gauge", "red");
+	// }
 
 
 
@@ -180,7 +182,7 @@ document.getElementById("js-attack").addEventListener("click", function() {
 			insertText("js-current-player-hp", playerData["hp"]);
 			document.getElementById("js-current-player-hp-gauge").style.width = "0%"
 
-			showModal(enemyData["name"] + "に負けた...", ture);
+			showModal(enemyData["name"] + "に負けた...", true);
 		}
 	}
 
@@ -193,10 +195,23 @@ document.getElementById("js-attack").addEventListener("click", function() {
 	if (victory) {
 		nowKilledNumber++;
 		insertText("js-now-killed-numbers", nowKilledNumber);
+
+		if (nowKilledNumber === targetKilledNumber) {
+			showModal("ゲームクリア", true);
+		}
 	}
 
 });
 
-document.getElementById("modal-next-button").addEventListener("click", function(){
+document.getElementById("js-modal-next-button").addEventListener("click", function(){
+	enemyData["hp"] = enemyData["maxHp"];
 	enemyData = enemiesData[Math.floor(Math.random() * enemiesData.length)];
-})
+	insertText("js-enemy-name", enemyData["name"]);
+	insertText("js-current-enemy-hp", enemyData["hp"]);
+	insertText("js-max-enemy-hp", enemyData["hp"]);
+	document.getElementById("js-current-enemy-hp-gauge").style.width = "100%"
+
+	document.getElementById("js-mask").classList.remove("active")
+	document.getElementById("js-modal").classList.remove("active")
+	document.getElementById("js-attack").classList.remove("deactive")
+});
